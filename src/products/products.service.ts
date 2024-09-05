@@ -14,19 +14,24 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
     this.logger.log('Database connected');
   }
 
+  async onModuleDestroy() {
+    await this.$disconnect();
+    this.logger.log('Database disconnected');
+  }
+
   create(createProductDto: CreateProductDto) {
     return this.product.create({
       data: createProductDto
     });
   }
 
-  async findAll( paginationDto: PaginationDto ) {
+  async findAll(paginationDto: PaginationDto) {
 
     const { page, limit } = paginationDto;
 
     const totalProducts = await this.product.count({ where: { available: true } });
-    const lastPage = Math.ceil( totalProducts / limit );
-    const skip = ( page - 1 ) * limit;
+    const lastPage = Math.ceil(totalProducts / limit);
+    const skip = (page - 1) * limit;
 
     const data = await this.product.findMany({
       take: limit,
@@ -51,8 +56,10 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
       where: { id, available: true },
     })
 
-    if ( !product ) {
-      throw new NotFoundException(`Product with id ${ id } not found`);
+    if (!product) {
+
+      this.logger.warn(`Product with id ${id} not found`);
+      throw new NotFoundException(`Product with id ${id} not found`);
     }
 
     return product;
@@ -60,17 +67,20 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
 
   async update(id: number, updateProductDto: UpdateProductDto) {
 
-    await this.findOne( id );
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { id: __, ...data } = updateProductDto;
 
-    return await this.product.update({
+    await this.findOne(id);
+
+    return this.product.update({
       where: { id },
-      data:  updateProductDto,
+      data,
     })
   }
 
   async remove(id: number) {
 
-    await this.findOne( id );
+    await this.findOne(id);
 
     const product = await this.product.update({
       where: { id },
