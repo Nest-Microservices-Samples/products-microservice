@@ -40,6 +40,10 @@ Microservice built with NestJS to manage product-related operations using TCP co
 6. **🧪 Test the microservice:**
    Use tools like **Postman**, **Insomnia**, or `curl` to send TCP messages and test the microservice endpoints. Both Postman and Insomnia are powerful tools that allow you to easily create requests, view responses, and debug APIs.
 
+## 📂 Data Folder for Testing
+
+- The `data` folder in the root of the project is intended for adding sample product data to the database for testing purposes. You can place JSON or CSV files with product information in this folder and use scripts or commands to import them into your development database.
+
 ## 📚 Documentation
 
 - For more details about the endpoints and their usage, refer to the `docs` folder or the Postman/Insomnia collection provided.
