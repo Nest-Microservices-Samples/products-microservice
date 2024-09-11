@@ -4,7 +4,11 @@
   <img src="https://nestjs.com/img/logo_text.svg" alt="NestJS Logo" width="300"/>
 </p>
 
-Microservice built with NestJS to manage product-related operations using TCP communication.
+Microservice built with NestJS to manage product-related operations using TCP communication. This microservice uses **SQLite** as the database for storing product information.
+
+<p align="center">
+  <img src="https://www.vectorlogo.zone/logos/sqlite/sqlite-ar21.svg" alt="SQLite Logo" width="200"/>
+</p>
 
 ## 🚀 Development Setup
 
@@ -42,7 +46,7 @@ Microservice built with NestJS to manage product-related operations using TCP co
 
 ## 📂 Data Folder for Testing
 
-- The `data` folder in the root of the project is intended for adding sample product data to the database for testing purposes. You can place JSON or CSV files with product information in this folder and use scripts or commands to import them into your development database.
+- The `data` folder in the root of the project is intended for adding sample product data to the database for testing purposes. You can place JSON or CSV files with product information in this folder and use scripts or commands to import them into your development database. **TablePlus** was used to insert these sample data into the SQLite database, test the database functionality, and visually inspect the data.
 
 ## 📚 Documentation
 
