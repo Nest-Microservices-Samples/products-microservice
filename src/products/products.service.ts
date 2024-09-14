@@ -57,10 +57,10 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
       where: { id, available: true },
     })
 
-    if ( !product ) {
+    if (!product) {
 
       throw new RpcException({
-        message: `Product with id #${ id } not found`,
+        message: `Product with id #${id} not found`,
         status: HttpStatus.BAD_REQUEST
       });
     }
@@ -91,5 +91,28 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
     })
 
     return product;
+  }
+
+  async validateProducts(ids: number[]) {
+
+    ids = Array.from( new Set(ids) );
+
+    const products = await this.product.findMany({
+      where: {
+        id: {
+          in: ids,
+        }
+      }
+    })
+
+    if ( products.length !== ids.length ) {
+      throw new RpcException({
+        message: 'some products were not found',
+        status: HttpStatus.BAD_REQUEST,
+      })
+    }
+
+    return products;
+
   }
 }
