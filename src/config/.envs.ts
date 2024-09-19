@@ -12,7 +12,7 @@ const envVarsSchema = joi.object({
     PORT: process.env.PORT,
     DATABASE_URL: joi.string().required(),
 
-    NATS_SERVERS: joi.array().items(joi.string()).required(),
+    NATS_SERVERS: joi.array().items( joi.string() ).required(),
 })
 .unknown(true);
 
