@@ -113,6 +113,5 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
     }
 
     return products;
-
   }
 }
